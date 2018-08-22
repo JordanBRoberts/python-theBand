@@ -1,8 +1,6 @@
 
 {%load staticfiles%}
 
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,65 +20,72 @@
 
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="50">
 
+
 <nav class="navbar navbar-default navbar-fixed-top">
   <div class="container-fluid">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
-        <span class="icon-bar"></span>                        
+        <span class="icon-bar"></span>
       </button>
       <a class="navbar-brand" href="#myPage">The Band </a>
     </div>
 
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav navbar-right">
-        
-        <li><a href="{% url 'index' %}">HOME</a></li>
-        <li><a href="{% url 'band' %}">BAND</a></li>
-        <li><a href="{% url 'tour' %}">TOUR</a></li>
-        <li><a href="{% url 'contact' %}">CONTACT</a></li>
-        <li><a href="{% url 'blog:header' %}" >BLOG</a><li>
-        <li><a href="{% url 'polls:index' %}" >POLLS </a><li>
+
+        <li><a href="{% url 'webBlog:index' %}">HOME</a></li>
+        <li><a href="{% url 'webBlog:band' %}">BAND</a></li>
+        <li><a href="{% url 'webBlog:tour' %}">TOUR</a></li>
+        <li><a href="{% url 'webBlog:contact' %}">CONTACT</a></li>
+        <li><a href="{% url 'webBlog:blog' %}" >BLOG</a>
+        <li><a href="{% url 'webBlog:polls-index' %}" >POLLS </a>
 
      </ul>
       </div>
   </div>
-</nav>
+  </nav>
 
 <br>
 </br>
 <br>
 </br>
 
-<new class="text-center">
- <h3> The Band Blog </h3>
- 
-<div class="container">
-      {% block content %}
-      {% endblock content %}
-  </div>
+<new class = "text-center">
+<h3>{{ question.question_text }}</h3>
 
-</div>
-
-
-</new>
+<ul class="list-unstyled">
+{% for choice in question.choice_set.all %}
+    <li>{{ choice.choice_text }} -- {{ choice.votes }} vote{{ choice.votes|pluralize }}</li>
+{% endfor %}
+</ul>
 
 
 
+<p><a href="{% url 'webBlog:detail' question.id %}">Vote again?</a>
+ </p>
 
-<footer class="text-center">
-  <a class="up-arrow" href="#myPage" data-toggle="tooltip" title="TO TOP">
-    <span class="glyphicon glyphicon-chevron-up"></span>
-  </a>
-  <p> &copy; Jordan Roberts.&nbsp;&nbsp; All Rights Reserved.&nbsp;&nbsp; Proudly created by Jordan Roberts</p>
-</footer>
- 
+ </new>
+
+
+
+
+ <div class="footer navbar-fixed-bottom">
+ <footer class="text-center" >
+   <a class="up-arrow" href="#myPage" data-toggle="tooltip" title="TO TOP">
+     <span class="glyphicon glyphicon-chevron-up"></span>
+   </a>
+   <p> &copy; Jordan Roberts</p>
+ </footer>
+
+ </div>
+
 <script>
 $(document).ready(function(){
   // Initialize Tooltip
-  $('[data-toggle="tooltip"]').tooltip(); 
-  
+  $('[data-toggle="tooltip"]').tooltip();
+
   // Add smooth scrolling to all links in navbar + footer link
   $(".navbar a, footer a[href='#myPage']").on('click', function(event) {
 
@@ -98,7 +103,7 @@ $(document).ready(function(){
       $('html, body').animate({
         scrollTop: $(hash).offset().top
       }, 900, function(){
-   
+
         // Add hash (#) to URL when done scrolling (default click behavior)
         window.location.hash = hash;
       });
@@ -108,22 +113,4 @@ $(document).ready(function(){
 </script>
 
 </body>
-
-
-
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
